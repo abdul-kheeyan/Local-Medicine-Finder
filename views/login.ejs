@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shopkeeper Login & Register</title>
+  <link rel="stylesheet" href="/css/style.css" />
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    padding: 20px;
+  }
+
+      body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    nav {
+      background: #1e1e2f;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+    }
+
+    nav h1 {
+      margin: 0;
+      font-size: 22px;
+      color: #4caf50;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li {
+      margin-left: 20px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+
+  header {
+    margin-top: 2rem;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .form-box {
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 30px 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* 👈 proper spacing between inputs */
+    margin-bottom: 30px;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: #4caf50;
+    outline: none;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  button:hover {
+    background-color: #45a049;
+  }
+
+  h2 {
+    color: black;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+</style>
+
+</head>
+<body>
+  <header>
+    <h1>🧾 Shopkeeper Portal</h1>
+    <p>Login or Register to manage your medicine stock</p>
+  </header>
+
+  <div class="form-box">
+    <!-- ✅ Login Form -->
+    <form action="/admin/login" method="POST">
+      <h2>Login</h2>
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+
+    <!-- ✅ Register Form -->
+    <form action="/admin/register" method="POST" onsubmit="return checkLocation()">
+      <h2>Register</h2>
+      <input type="text" name="name" placeholder="Shop Name" required />
+      <input type="text" name="address" placeholder="Address" required />
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="password" name="password" placeholder="Password" required />
+
+      <!-- 🌍 Hidden location inputs auto-filled by JS -->
+      <input type="hidden" name="lat" id="lat" />
+      <input type="hidden" name="lng" id="lng" />
+
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <script>
+    // Geolocation to auto-fill lat/lng
+    window.onload = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(pos => {
+          document.getElementById('lat').value = pos.coords.latitude;
+          document.getElementById('lng').value = pos.coords.longitude;
+        }, () => {
+          alert("❌ Location permission denied.");
+        });
+      } else {
+        alert("❌ Geolocation not supported by browser.");
+      }
+    };
+
+    function checkLocation() {
+      const lat = document.getElementById('lat').value;
+      const lng = document.getElementById('lng').value;
+
+      if (!lat || !lng) {
+        alert("⚠️ Please wait for location to load.");
+        return false;
+      }
+      return true;
+    }
+  </script>
+</body>
+</html>

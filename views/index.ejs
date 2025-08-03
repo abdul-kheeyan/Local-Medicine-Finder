@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Local Medicine Finder</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    nav {
+      background: #1e1e2f;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+    }
+
+    nav h1 {
+      margin: 0;
+      font-size: 22px;
+      color: #4caf50;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li {
+      margin-left: 20px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav ul li a:hover {
+      color: #44b848;
+    }
+
+    footer {
+      background-color: #1e1e2f;
+      color: #ccc;
+      padding: 20px;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    footer a {
+      color: #4caf50;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 50px 20px;
+      background: linear-gradient(135deg, #3a3a5a, #1e1e2f);
+      border-radius: 10px;
+      margin-bottom: 40px;
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #ccc;
+    }
+
+    .form-box {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .form-box input[type="text"],
+    .form-box button {
+      padding: 10px;
+      margin-right: 10px;
+    }
+
+    .features {
+      margin-top: 50px;
+    }
+
+    .features h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .features ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .features li {
+      background: #2b2b40;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 8px;
+      color: #eee;
+    }
+
+    .actions {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .actions a {
+      margin: 0 10px;
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+
+    .actions a:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ Navbar -->
+  <nav>
+    <h1>Abdul Kheeyan</h1>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/login">Login</a></li>
+      <li><a href="/register">Register</a></li>
+    </ul>
+  </nav>
+
+  <!-- ✅ Hero Section -->
+  <main class="container">
+    <div class="hero">
+      <h1>Find Medicines Near You Instantly</h1>
+      <p>Get live availability of medicines in nearby medical shops</p>
+
+      <!-- 🔍 Search Form -->
+      <div class="form-box">
+        <form action="/search" method="GET" onsubmit="return checkLocation()">
+          <input type="text" name="medicine" placeholder="Enter medicine name" required />
+          <input type="hidden" name="lat" id="lat" />
+          <input type="hidden" name="lng" id="lng" />
+          <button type="submit">Search</button>
+        </form>
+      </div>
+
+      <!-- 🔐 Auth Buttons -->
+      <div class="actions">
+        <a href="/login">Login</a>
+        <a href="/register">Register Shop</a>
+      </div>
+    </div>
+
+    <!-- ✅ Features Section -->
+    <section class="features">
+      <h2>Why Use Our Service?</h2>
+      <ul>
+        <li>📍 Find medicine availability in shops near you</li>
+        <li>🕒 Real-time stock and distance</li>
+        <li>💊 Search by name or category</li>
+        <li>🔐 Secure shopkeeper login & dashboard</li>
+      </ul>
+    </section>
+
+    <!-- ✅ Nearby Shops -->
+    <section class="features">
+      <h2>Nearby Shops</h2>
+      <ul id="shopsList">
+        <li>Detecting your location and loading nearby shops...</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- ✅ Footer -->
+  <footer>
+    <p>&copy; 2025 Abdul Kheeyan | Built with ❤️ for local medical support. | <a href="mailto:support@medfinder.com">Contact</a></p>
+  </footer>
+
+  <!-- ✅ Geolocation Script -->
+  <script>
+    window.onload = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(pos => {
+          document.getElementById('lat').value = pos.coords.latitude;
+          document.getElementById('lng').value = pos.coords.longitude;
+        }, () => {
+          alert("❌ Location permission denied.");
+        });
+      } else {
+        alert("❌ Geolocation not supported by your browser.");
+      }
+    };
+
+    function checkLocation() {
+      const lat = document.getElementById('lat').value;
+      const lng = document.getElementById('lng').value;
+      if (!lat || !lng) {
+        alert("⚠️ Please wait for location to load.");
+        return false;
+      }
+      return true;
+    }
+  </script>
+</body>
+</html>
