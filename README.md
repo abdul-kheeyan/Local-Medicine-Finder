@@ -39,3 +39,28 @@ A modern web application that helps users find **nearby medical shops** stocking
 
 ## 🧩 Folder Structure
 
+📦 Local-Medicine-Finder
+├── 📁 models # Mongoose schemas (Shopkeeper, Medicine)
+├── 📁 routes # Express route handlers
+├── 📁 views # EJS templates (login, register, dashboard, search)
+├── 📁 public # Static assets (CSS, JS, images)
+├── 📄 app.js # Main server setup
+├── 📄 .env # MongoDB URL and secret keys
+└── 📄 README.md # Project documentation
+
+---
+
+## 🧪 Setup Instructions
+
+### ⚙️ Prerequisites
+
+- Node.js & npm installed
+- MongoDB running locally or cloud (MongoDB Atlas)
+
+### 📥 Installation
+
+```bash
+git clone https://github.com/your-username/local-medicine-finder.git
+cd local-medicine-finder
+npm install
+
